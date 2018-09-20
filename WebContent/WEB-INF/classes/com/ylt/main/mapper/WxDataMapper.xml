@@ -1,0 +1,739 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ylt.main.mapper.WxDataMapper" >
+  <resultMap id="BaseResultMap" type="com.ylt.main.pojo.WxData" >
+    <id column="DataID" property="dataid" jdbcType="BIGINT" />
+    <result column="DealTime" property="dealtime" jdbcType="TIMESTAMP" />
+    <result column="GetOrPut" property="getorput" jdbcType="BIT" />
+    <result column="DataType" property="datatype" jdbcType="BIT" />
+    <result column="ToUserName" property="tousername" jdbcType="VARCHAR" />
+    <result column="FromUserName" property="fromusername" jdbcType="VARCHAR" />
+    <result column="CreateTime" property="createtime" jdbcType="INTEGER" />
+    <result column="MsgType" property="msgtype" jdbcType="VARCHAR" />
+    <result column="MsgId" property="msgid" jdbcType="BIGINT" />
+    <result column="MediaId" property="mediaid" jdbcType="VARCHAR" />
+    <result column="ThumbMediaId" property="thumbmediaid" jdbcType="VARCHAR" />
+    <result column="Format" property="format" jdbcType="VARCHAR" />
+    <result column="Location_X" property="locationX" jdbcType="REAL" />
+    <result column="Location_Y" property="locationY" jdbcType="REAL" />
+    <result column="Scale" property="scale" jdbcType="INTEGER" />
+    <result column="Label" property="label" jdbcType="VARCHAR" />
+    <result column="Title" property="title" jdbcType="VARCHAR" />
+    <result column="Description" property="description" jdbcType="VARCHAR" />
+    <result column="Url" property="url" jdbcType="VARCHAR" />
+    <result column="PicUrl" property="picurl" jdbcType="VARCHAR" />
+    <result column="MusicURL" property="musicurl" jdbcType="VARCHAR" />
+    <result column="HQMusicUrl" property="hqmusicurl" jdbcType="VARCHAR" />
+    <result column="Event" property="event" jdbcType="VARCHAR" />
+    <result column="EventKey" property="eventkey" jdbcType="VARCHAR" />
+    <result column="Ticket" property="ticket" jdbcType="VARCHAR" />
+    <result column="Latitude" property="latitude" jdbcType="REAL" />
+    <result column="Longitude" property="longitude" jdbcType="REAL" />
+    <result column="Precision" property="precision" jdbcType="REAL" />
+    <result column="Recognition" property="recognition" jdbcType="VARCHAR" />
+  </resultMap>
+  <resultMap id="ResultMapWithBLOBs" type="com.ylt.main.pojo.WxDataWithBLOBs" extends="BaseResultMap" >
+    <result column="DataContent" property="datacontent" jdbcType="LONGVARCHAR" />
+    <result column="Content" property="content" jdbcType="LONGVARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    DataID, DealTime, GetOrPut, DataType, ToUserName, FromUserName, CreateTime, MsgType, 
+    MsgId, MediaId, ThumbMediaId, Format, Location_X, Location_Y, Scale, Label, Title, 
+    Description, Url, PicUrl, MusicURL, HQMusicUrl, Event, EventKey, Ticket, Latitude, 
+    Longitude, Precision, Recognition
+  </sql>
+  <sql id="Blob_Column_List" >
+    DataContent, Content
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="ResultMapWithBLOBs" parameterType="java.lang.Long" >
+    select 
+    <include refid="Base_Column_List" />
+    ,
+    <include refid="Blob_Column_List" />
+    from wx_data
+    where DataID = #{dataid,jdbcType=BIGINT}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Long" >
+    delete from wx_data
+    where DataID = #{dataid,jdbcType=BIGINT}
+  </delete>
+  <insert id="insert" parameterType="com.ylt.main.pojo.WxDataWithBLOBs" >
+    insert into wx_data (DataID, DealTime, GetOrPut, 
+      DataType, ToUserName, FromUserName, 
+      CreateTime, MsgType, MsgId, 
+      MediaId, ThumbMediaId, Format, 
+      Location_X, Location_Y, Scale, 
+      Label, Title, Description, 
+      Url, PicUrl, MusicURL, 
+      HQMusicUrl, Event, EventKey, 
+      Ticket, Latitude, Longitude, 
+      Precision, Recognition, DataContent, 
+      Content)
+    values (#{dataid,jdbcType=BIGINT}, #{dealtime,jdbcType=TIMESTAMP}, #{getorput,jdbcType=BIT}, 
+      #{datatype,jdbcType=BIT}, #{tousername,jdbcType=VARCHAR}, #{fromusername,jdbcType=VARCHAR}, 
+      #{createtime,jdbcType=INTEGER}, #{msgtype,jdbcType=VARCHAR}, #{msgid,jdbcType=BIGINT}, 
+      #{mediaid,jdbcType=VARCHAR}, #{thumbmediaid,jdbcType=VARCHAR}, #{format,jdbcType=VARCHAR}, 
+      #{locationX,jdbcType=REAL}, #{locationY,jdbcType=REAL}, #{scale,jdbcType=INTEGER}, 
+      #{label,jdbcType=VARCHAR}, #{title,jdbcType=VARCHAR}, #{description,jdbcType=VARCHAR}, 
+      #{url,jdbcType=VARCHAR}, #{picurl,jdbcType=VARCHAR}, #{musicurl,jdbcType=VARCHAR}, 
+      #{hqmusicurl,jdbcType=VARCHAR}, #{event,jdbcType=VARCHAR}, #{eventkey,jdbcType=VARCHAR}, 
+      #{ticket,jdbcType=VARCHAR}, #{latitude,jdbcType=REAL}, #{longitude,jdbcType=REAL}, 
+      #{precision,jdbcType=REAL}, #{recognition,jdbcType=VARCHAR}, #{datacontent,jdbcType=LONGVARCHAR}, 
+      #{content,jdbcType=LONGVARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ylt.main.pojo.WxDataWithBLOBs" >
+    insert into wx_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        DataID,
+      </if>
+      <if test="dealtime != null" >
+        DealTime,
+      </if>
+      <if test="getorput != null" >
+        GetOrPut,
+      </if>
+      <if test="datatype != null" >
+        DataType,
+      </if>
+      <if test="tousername != null" >
+        ToUserName,
+      </if>
+      <if test="fromusername != null" >
+        FromUserName,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="msgtype != null" >
+        MsgType,
+      </if>
+      <if test="msgid != null" >
+        MsgId,
+      </if>
+      <if test="mediaid != null" >
+        MediaId,
+      </if>
+      <if test="thumbmediaid != null" >
+        ThumbMediaId,
+      </if>
+      <if test="format != null" >
+        Format,
+      </if>
+      <if test="locationX != null" >
+        Location_X,
+      </if>
+      <if test="locationY != null" >
+        Location_Y,
+      </if>
+      <if test="scale != null" >
+        Scale,
+      </if>
+      <if test="label != null" >
+        Label,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="url != null" >
+        Url,
+      </if>
+      <if test="picurl != null" >
+        PicUrl,
+      </if>
+      <if test="musicurl != null" >
+        MusicURL,
+      </if>
+      <if test="hqmusicurl != null" >
+        HQMusicUrl,
+      </if>
+      <if test="event != null" >
+        Event,
+      </if>
+      <if test="eventkey != null" >
+        EventKey,
+      </if>
+      <if test="ticket != null" >
+        Ticket,
+      </if>
+      <if test="latitude != null" >
+        Latitude,
+      </if>
+      <if test="longitude != null" >
+        Longitude,
+      </if>
+      <if test="precision != null" >
+        Precision,
+      </if>
+      <if test="recognition != null" >
+        Recognition,
+      </if>
+      <if test="datacontent != null" >
+        DataContent,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        #{dataid,jdbcType=BIGINT},
+      </if>
+      <if test="dealtime != null" >
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getorput != null" >
+        #{getorput,jdbcType=BIT},
+      </if>
+      <if test="datatype != null" >
+        #{datatype,jdbcType=BIT},
+      </if>
+      <if test="tousername != null" >
+        #{tousername,jdbcType=VARCHAR},
+      </if>
+      <if test="fromusername != null" >
+        #{fromusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="msgtype != null" >
+        #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="msgid != null" >
+        #{msgid,jdbcType=BIGINT},
+      </if>
+      <if test="mediaid != null" >
+        #{mediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbmediaid != null" >
+        #{thumbmediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null" >
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="locationX != null" >
+        #{locationX,jdbcType=REAL},
+      </if>
+      <if test="locationY != null" >
+        #{locationY,jdbcType=REAL},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null" >
+        #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="eventkey != null" >
+        #{eventkey,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null" >
+        #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=REAL},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=REAL},
+      </if>
+      <if test="precision != null" >
+        #{precision,jdbcType=REAL},
+      </if>
+      <if test="recognition != null" >
+        #{recognition,jdbcType=VARCHAR},
+      </if>
+      <if test="datacontent != null" >
+        #{datacontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ylt.main.pojo.WxDataWithBLOBs" >
+    update wx_data
+    <set >
+      <if test="dealtime != null" >
+        DealTime = #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getorput != null" >
+        GetOrPut = #{getorput,jdbcType=BIT},
+      </if>
+      <if test="datatype != null" >
+        DataType = #{datatype,jdbcType=BIT},
+      </if>
+      <if test="tousername != null" >
+        ToUserName = #{tousername,jdbcType=VARCHAR},
+      </if>
+      <if test="fromusername != null" >
+        FromUserName = #{fromusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="msgtype != null" >
+        MsgType = #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="msgid != null" >
+        MsgId = #{msgid,jdbcType=BIGINT},
+      </if>
+      <if test="mediaid != null" >
+        MediaId = #{mediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbmediaid != null" >
+        ThumbMediaId = #{thumbmediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null" >
+        Format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="locationX != null" >
+        Location_X = #{locationX,jdbcType=REAL},
+      </if>
+      <if test="locationY != null" >
+        Location_Y = #{locationY,jdbcType=REAL},
+      </if>
+      <if test="scale != null" >
+        Scale = #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        Label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        Url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        PicUrl = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        MusicURL = #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        HQMusicUrl = #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null" >
+        Event = #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="eventkey != null" >
+        EventKey = #{eventkey,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null" >
+        Ticket = #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        Latitude = #{latitude,jdbcType=REAL},
+      </if>
+      <if test="longitude != null" >
+        Longitude = #{longitude,jdbcType=REAL},
+      </if>
+      <if test="precision != null" >
+        Precision = #{precision,jdbcType=REAL},
+      </if>
+      <if test="recognition != null" >
+        Recognition = #{recognition,jdbcType=VARCHAR},
+      </if>
+      <if test="datacontent != null" >
+        DataContent = #{datacontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where DataID = #{dataid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKeyWithBLOBs" parameterType="com.ylt.main.pojo.WxDataWithBLOBs" >
+    update wx_data
+    set DealTime = #{dealtime,jdbcType=TIMESTAMP},
+      GetOrPut = #{getorput,jdbcType=BIT},
+      DataType = #{datatype,jdbcType=BIT},
+      ToUserName = #{tousername,jdbcType=VARCHAR},
+      FromUserName = #{fromusername,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=INTEGER},
+      MsgType = #{msgtype,jdbcType=VARCHAR},
+      MsgId = #{msgid,jdbcType=BIGINT},
+      MediaId = #{mediaid,jdbcType=VARCHAR},
+      ThumbMediaId = #{thumbmediaid,jdbcType=VARCHAR},
+      Format = #{format,jdbcType=VARCHAR},
+      Location_X = #{locationX,jdbcType=REAL},
+      Location_Y = #{locationY,jdbcType=REAL},
+      Scale = #{scale,jdbcType=INTEGER},
+      Label = #{label,jdbcType=VARCHAR},
+      Title = #{title,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      Url = #{url,jdbcType=VARCHAR},
+      PicUrl = #{picurl,jdbcType=VARCHAR},
+      MusicURL = #{musicurl,jdbcType=VARCHAR},
+      HQMusicUrl = #{hqmusicurl,jdbcType=VARCHAR},
+      Event = #{event,jdbcType=VARCHAR},
+      EventKey = #{eventkey,jdbcType=VARCHAR},
+      Ticket = #{ticket,jdbcType=VARCHAR},
+      Latitude = #{latitude,jdbcType=REAL},
+      Longitude = #{longitude,jdbcType=REAL},
+      Precision = #{precision,jdbcType=REAL},
+      Recognition = #{recognition,jdbcType=VARCHAR},
+      DataContent = #{datacontent,jdbcType=LONGVARCHAR},
+      Content = #{content,jdbcType=LONGVARCHAR}
+    where DataID = #{dataid,jdbcType=BIGINT}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ylt.main.pojo.WxData" >
+    update wx_data
+    set DealTime = #{dealtime,jdbcType=TIMESTAMP},
+      GetOrPut = #{getorput,jdbcType=BIT},
+      DataType = #{datatype,jdbcType=BIT},
+      ToUserName = #{tousername,jdbcType=VARCHAR},
+      FromUserName = #{fromusername,jdbcType=VARCHAR},
+      CreateTime = #{createtime,jdbcType=INTEGER},
+      MsgType = #{msgtype,jdbcType=VARCHAR},
+      MsgId = #{msgid,jdbcType=BIGINT},
+      MediaId = #{mediaid,jdbcType=VARCHAR},
+      ThumbMediaId = #{thumbmediaid,jdbcType=VARCHAR},
+      Format = #{format,jdbcType=VARCHAR},
+      Location_X = #{locationX,jdbcType=REAL},
+      Location_Y = #{locationY,jdbcType=REAL},
+      Scale = #{scale,jdbcType=INTEGER},
+      Label = #{label,jdbcType=VARCHAR},
+      Title = #{title,jdbcType=VARCHAR},
+      Description = #{description,jdbcType=VARCHAR},
+      Url = #{url,jdbcType=VARCHAR},
+      PicUrl = #{picurl,jdbcType=VARCHAR},
+      MusicURL = #{musicurl,jdbcType=VARCHAR},
+      HQMusicUrl = #{hqmusicurl,jdbcType=VARCHAR},
+      Event = #{event,jdbcType=VARCHAR},
+      EventKey = #{eventkey,jdbcType=VARCHAR},
+      Ticket = #{ticket,jdbcType=VARCHAR},
+      Latitude = #{latitude,jdbcType=REAL},
+      Longitude = #{longitude,jdbcType=REAL},
+      Precision = #{precision,jdbcType=REAL},
+      Recognition = #{recognition,jdbcType=VARCHAR}
+    where DataID = #{dataid,jdbcType=BIGINT}
+  </update>
+  
+  <select id="selectByFromUsername" resultMap="BaseResultMap" parameterType="java.lang.String" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_data
+    where FromUserName = #{FromUserName,jdbcType=VARCHAR}
+  </select>
+  <insert id="insertData" parameterType="com.ylt.main.pojo.WxData" >
+    insert into wx_data
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        DataID,
+      </if>
+      <if test="dealtime != null" >
+        DealTime,
+      </if>
+      <if test="getorput != null" >
+        GetOrPut,
+      </if>
+      <if test="datatype != null" >
+        DataType,
+      </if>
+      <if test="tousername != null" >
+        ToUserName,
+      </if>
+      <if test="fromusername != null" >
+        FromUserName,
+      </if>
+      <if test="createtime != null" >
+        CreateTime,
+      </if>
+      <if test="msgtype != null" >
+        MsgType,
+      </if>
+      <if test="msgid != null" >
+        MsgId,
+      </if>
+      <if test="mediaid != null" >
+        MediaId,
+      </if>
+      <if test="thumbmediaid != null" >
+        ThumbMediaId,
+      </if>
+      <if test="format != null" >
+        Format,
+      </if>
+      <if test="locationX != null" >
+        Location_X,
+      </if>
+      <if test="locationY != null" >
+        Location_Y,
+      </if>
+      <if test="scale != null" >
+        Scale,
+      </if>
+      <if test="label != null" >
+        Label,
+      </if>
+      <if test="title != null" >
+        Title,
+      </if>
+      <if test="description != null" >
+        Description,
+      </if>
+      <if test="url != null" >
+        Url,
+      </if>
+      <if test="picurl != null" >
+        PicUrl,
+      </if>
+      <if test="musicurl != null" >
+        MusicURL,
+      </if>
+      <if test="hqmusicurl != null" >
+        HQMusicUrl,
+      </if>
+      <if test="event != null" >
+        Event,
+      </if>
+      <if test="eventkey != null" >
+        EventKey,
+      </if>
+      <if test="ticket != null" >
+        Ticket,
+      </if>
+      <if test="latitude != null" >
+        Latitude,
+      </if>
+      <if test="longitude != null" >
+        Longitude,
+      </if>
+      <if test="precision != null" >
+        Precision,
+      </if>
+      <if test="recognition != null" >
+        Recognition,
+      </if>
+      <if test="datacontent != null" >
+        DataContent,
+      </if>
+      <if test="content != null" >
+        Content,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="dataid != null" >
+        #{dataid,jdbcType=BIGINT},
+      </if>
+      <if test="dealtime != null" >
+        #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getorput != null" >
+        #{getorput,jdbcType=BIT},
+      </if>
+      <if test="datatype != null" >
+        #{datatype,jdbcType=BIT},
+      </if>
+      <if test="tousername != null" >
+        #{tousername,jdbcType=VARCHAR},
+      </if>
+      <if test="fromusername != null" >
+        #{fromusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="msgtype != null" >
+        #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="msgid != null" >
+        #{msgid,jdbcType=BIGINT},
+      </if>
+      <if test="mediaid != null" >
+        #{mediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbmediaid != null" >
+        #{thumbmediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null" >
+        #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="locationX != null" >
+        #{locationX,jdbcType=REAL},
+      </if>
+      <if test="locationY != null" >
+        #{locationY,jdbcType=REAL},
+      </if>
+      <if test="scale != null" >
+        #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null" >
+        #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="eventkey != null" >
+        #{eventkey,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null" >
+        #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        #{latitude,jdbcType=REAL},
+      </if>
+      <if test="longitude != null" >
+        #{longitude,jdbcType=REAL},
+      </if>
+      <if test="precision != null" >
+        #{precision,jdbcType=REAL},
+      </if>
+      <if test="recognition != null" >
+        #{recognition,jdbcType=VARCHAR},
+      </if>
+      <if test="datacontent != null" >
+        #{datacontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateData" parameterType="com.ylt.main.pojo.WxData" >
+    update wx_data
+    <set >
+      <if test="dealtime != null" >
+        DealTime = #{dealtime,jdbcType=TIMESTAMP},
+      </if>
+      <if test="getorput != null" >
+        GetOrPut = #{getorput,jdbcType=BIT},
+      </if>
+      <if test="datatype != null" >
+        DataType = #{datatype,jdbcType=BIT},
+      </if>
+      <if test="tousername != null" >
+        ToUserName = #{tousername,jdbcType=VARCHAR},
+      </if>
+      <if test="fromusername != null" >
+        FromUserName = #{fromusername,jdbcType=VARCHAR},
+      </if>
+      <if test="createtime != null" >
+        CreateTime = #{createtime,jdbcType=INTEGER},
+      </if>
+      <if test="msgtype != null" >
+        MsgType = #{msgtype,jdbcType=VARCHAR},
+      </if>
+      <if test="msgid != null" >
+        MsgId = #{msgid,jdbcType=BIGINT},
+      </if>
+      <if test="mediaid != null" >
+        MediaId = #{mediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="thumbmediaid != null" >
+        ThumbMediaId = #{thumbmediaid,jdbcType=VARCHAR},
+      </if>
+      <if test="format != null" >
+        Format = #{format,jdbcType=VARCHAR},
+      </if>
+      <if test="locationX != null" >
+        Location_X = #{locationX,jdbcType=REAL},
+      </if>
+      <if test="locationY != null" >
+        Location_Y = #{locationY,jdbcType=REAL},
+      </if>
+      <if test="scale != null" >
+        Scale = #{scale,jdbcType=INTEGER},
+      </if>
+      <if test="label != null" >
+        Label = #{label,jdbcType=VARCHAR},
+      </if>
+      <if test="title != null" >
+        Title = #{title,jdbcType=VARCHAR},
+      </if>
+      <if test="description != null" >
+        Description = #{description,jdbcType=VARCHAR},
+      </if>
+      <if test="url != null" >
+        Url = #{url,jdbcType=VARCHAR},
+      </if>
+      <if test="picurl != null" >
+        PicUrl = #{picurl,jdbcType=VARCHAR},
+      </if>
+      <if test="musicurl != null" >
+        MusicURL = #{musicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="hqmusicurl != null" >
+        HQMusicUrl = #{hqmusicurl,jdbcType=VARCHAR},
+      </if>
+      <if test="event != null" >
+        Event = #{event,jdbcType=VARCHAR},
+      </if>
+      <if test="eventkey != null" >
+        EventKey = #{eventkey,jdbcType=VARCHAR},
+      </if>
+      <if test="ticket != null" >
+        Ticket = #{ticket,jdbcType=VARCHAR},
+      </if>
+      <if test="latitude != null" >
+        Latitude = #{latitude,jdbcType=REAL},
+      </if>
+      <if test="longitude != null" >
+        Longitude = #{longitude,jdbcType=REAL},
+      </if>
+      <if test="precision != null" >
+        Precision = #{precision,jdbcType=REAL},
+      </if>
+      <if test="recognition != null" >
+        Recognition = #{recognition,jdbcType=VARCHAR},
+      </if>
+      <if test="datacontent != null" >
+        DataContent = #{datacontent,jdbcType=LONGVARCHAR},
+      </if>
+      <if test="content != null" >
+        Content = #{content,jdbcType=LONGVARCHAR},
+      </if>
+    </set>
+    where DataID = #{dataid,jdbcType=BIGINT}
+  </update>
+  <select id="GetAllData" resultType="com.ylt.main.pojo.WxData">
+	select * from wx_data
+</select>
+ 
+</mapper>

@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:aop="http://www.springframework.org/schema/aop" xmlns:tx="http://www.springframework.org/schema/tx"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans 
+	http://www.springframework.org/schema/beans/spring-beans-4.1.xsd 
+	http://www.springframework.org/schema/mvc 
+	http://www.springframework.org/schema/mvc/spring-mvc-4.1.xsd 
+	http://www.springframework.org/schema/context 
+	http://www.springframework.org/schema/context/spring-context-4.1.xsd 
+	http://www.springframework.org/schema/aop 
+	http://www.springframework.org/schema/aop/spring-aop-4.1.xsd 
+	http://www.springframework.org/schema/tx 
+	http://www.springframework.org/schema/tx/spring-tx-4.1.xsd">
+<!-- 注解 -->
+
+<!--<context:annotation-config></context:annotation-config> -->
+<!--另，在我们使用注解时一般都会配置扫描包路径选项，因此当使用<context:component-scan/>后，即可将<context:annotation-config/>省去。 -->
+<context:component-scan base-package="com.ylt.main"></context:component-scan>
+<!-- 注解请求映射  -->
+<mvc:annotation-driven></mvc:annotation-driven>
+<mvc:resources location="/js/" mapping="/js/**"></mvc:resources>
+<context:property-placeholder location="classpath:jdbc.properties"/>
+<!-- 数据源配置 -->
+<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+	<property name="driverClassName" value="${jdbc.driver}" />
+	<property name="url" value="${jdbc.url}" />
+	<property name="username" value="${jdbc.username}" />
+	<property name="password" value="${jdbc.password}" />
+	<property name="maxActive" value="10" />
+	<property name="maxIdle" value="5" />
+</bean>
+<!-- 配置sqlSessionFactory -->
+<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+	<property name="dataSource" ref="dataSource"></property>
+	<!-- 加载sqlMapConfig.xml -->
+	<property name="configLocation" value="classpath:sqlMapConfig.xml"></property>
+</bean>
+<bean id="userDao" class="com.ylt.main.dao.UserDao">
+	<property name="sqlSessionFactory" ref="sqlSessionFactory"></property>
+</bean>
+<bean class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+	<property name="viewClass" value="org.springframework.web.servlet.view.JstlView"></property>
+	<property name="prefix" value="/WEB-INF/jsp/"></property>
+	<property name="suffix" value=".jsp"></property>
+</bean>
+<!-- 通过mapper扫描的方式 -->
+<bean class="org.mybatis.spring.mapper.MapperScannerConfigurer">
+<!-- 注意使用  sqlSessionFactoryBeanName 和 value-->
+	<property name="sqlSessionFactoryBeanName" value="sqlSessionFactory"></property>
+	<property name="basePackage" value="com.ylt.main.mapper"></property>
+</bean>
+
+</beans>

@@ -1,0 +1,193 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ylt.main.mapper.PersonMapper" >
+  <resultMap id="BaseResultMap" type="com.ylt.main.pojo.Person" >
+    <result column="pname" property="pname" jdbcType="VARCHAR" />
+    <result column="psex" property="psex" jdbcType="VARCHAR" />
+    <result column="pmanager" property="pmanager" jdbcType="VARCHAR" />
+    <result column="pphone" property="pphone" jdbcType="VARCHAR" />
+    <result column="pemail" property="pemail" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Example_Where_Clause" >
+    <where >
+      <foreach collection="oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Update_By_Example_Where_Clause" >
+    <where >
+      <foreach collection="example.oredCriteria" item="criteria" separator="or" >
+        <if test="criteria.valid" >
+          <trim prefix="(" suffix=")" prefixOverrides="and" >
+            <foreach collection="criteria.criteria" item="criterion" >
+              <choose >
+                <when test="criterion.noValue" >
+                  and ${criterion.condition}
+                </when>
+                <when test="criterion.singleValue" >
+                  and ${criterion.condition} #{criterion.value}
+                </when>
+                <when test="criterion.betweenValue" >
+                  and ${criterion.condition} #{criterion.value} and #{criterion.secondValue}
+                </when>
+                <when test="criterion.listValue" >
+                  and ${criterion.condition}
+                  <foreach collection="criterion.value" item="listItem" open="(" close=")" separator="," >
+                    #{listItem}
+                  </foreach>
+                </when>
+              </choose>
+            </foreach>
+          </trim>
+        </if>
+      </foreach>
+    </where>
+  </sql>
+  <sql id="Base_Column_List" >
+    pname, psex, pmanager, pphone, pemail
+  </sql>
+  <select id="selectByExample" resultMap="BaseResultMap" parameterType="com.ylt.main.pojo.PersonExample" >
+    select
+    <if test="distinct" >
+      distinct
+    </if>
+    <include refid="Base_Column_List" />
+    from person
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+    <if test="orderByClause != null" >
+      order by ${orderByClause}
+    </if>
+  </select>
+  <delete id="deleteByExample" parameterType="com.ylt.main.pojo.PersonExample" >
+    delete from person
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </delete>
+  <insert id="insert" parameterType="com.ylt.main.pojo.Person" >
+    insert into person (pname, psex, pmanager, 
+      pphone, pemail)
+    values (#{pname,jdbcType=VARCHAR}, #{psex,jdbcType=VARCHAR}, #{pmanager,jdbcType=VARCHAR}, 
+      #{pphone,jdbcType=VARCHAR}, #{pemail,jdbcType=VARCHAR})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ylt.main.pojo.Person" >
+    insert into person
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="pname != null" >
+        pname,
+      </if>
+      <if test="psex != null" >
+        psex,
+      </if>
+      <if test="pmanager != null" >
+        pmanager,
+      </if>
+      <if test="pphone != null" >
+        pphone,
+      </if>
+      <if test="pemail != null" >
+        pemail,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="pname != null" >
+        #{pname,jdbcType=VARCHAR},
+      </if>
+      <if test="psex != null" >
+        #{psex,jdbcType=VARCHAR},
+      </if>
+      <if test="pmanager != null" >
+        #{pmanager,jdbcType=VARCHAR},
+      </if>
+      <if test="pphone != null" >
+        #{pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="pemail != null" >
+        #{pemail,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <select id="countByExample" parameterType="com.ylt.main.pojo.PersonExample" resultType="java.lang.Integer" >
+    select count(*) from person
+    <if test="_parameter != null" >
+      <include refid="Example_Where_Clause" />
+    </if>
+  </select>
+  <update id="updateByExampleSelective" parameterType="map" >
+    update person
+    <set >
+      <if test="record.pname != null" >
+        pname = #{record.pname,jdbcType=VARCHAR},
+      </if>
+      <if test="record.psex != null" >
+        psex = #{record.psex,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pmanager != null" >
+        pmanager = #{record.pmanager,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pphone != null" >
+        pphone = #{record.pphone,jdbcType=VARCHAR},
+      </if>
+      <if test="record.pemail != null" >
+        pemail = #{record.pemail,jdbcType=VARCHAR},
+      </if>
+    </set>
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <update id="updateByExample" parameterType="map" >
+    update person
+    set pname = #{record.pname,jdbcType=VARCHAR},
+      psex = #{record.psex,jdbcType=VARCHAR},
+      pmanager = #{record.pmanager,jdbcType=VARCHAR},
+      pphone = #{record.pphone,jdbcType=VARCHAR},
+      pemail = #{record.pemail,jdbcType=VARCHAR}
+    <if test="_parameter != null" >
+      <include refid="Update_By_Example_Where_Clause" />
+    </if>
+  </update>
+  <insert id="addPerson" parameterType="person">
+  INSERT INTO person(pname,psex,pmanager,pphone,pemail,ccid) VALUES(#{pname},#{psex},#{pmanager},#{pphone},#{pemail},#{ccid})
+  </insert>
+  
+  <select id="getPerson" resultType="person" parameterType="person">
+ select p.*
+from person p
+where p.pid=#{pid} and p.ccid=#{ccid}
+  
+  </select>
+  
+  <update id="updatePerson" parameterType="person" >
+  UPDATE person  SET pname=#{pname},pmanager=#{pmanager},pphone=#{pphone},pemail=#{pemail},psex=#{psex} where ccid=#{ccid} and pid=#{pid}
+  
+  </update>
+  <delete id="delete" parameterType="person">
+  	delete from person where pid=#{pid}
+  </delete>
+</mapper>

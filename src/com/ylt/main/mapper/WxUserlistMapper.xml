@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ylt.main.mapper.WxUserlistMapper" >
+  <resultMap id="BaseResultMap" type="com.ylt.main.pojo.WxUserlist" >
+    <id column="MpID" property="mpid" jdbcType="VARCHAR" />
+    <id column="UserID" property="userid" jdbcType="VARCHAR" />
+    <result column="UserName" property="username" jdbcType="VARCHAR" />
+    <result column="NickName" property="nickname" jdbcType="VARCHAR" />
+    <result column="RemarkName" property="remarkname" jdbcType="VARCHAR" />
+    <result column="City" property="city" jdbcType="VARCHAR" />
+    <result column="Province" property="province" jdbcType="VARCHAR" />
+    <result column="Country" property="country" jdbcType="VARCHAR" />
+    <result column="Gender" property="gender" jdbcType="BIT" />
+    <result column="GroupId" property="groupid" jdbcType="INTEGER" />
+    <result column="UserState" property="userstate" jdbcType="BIT" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    MpID, UserID, UserName, NickName, RemarkName, City, Province, Country, Gender, GroupId, 
+    UserState
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="com.ylt.main.pojo.WxUserlistKey" >
+    select 
+    <include refid="Base_Column_List" />
+    from wx_userlist
+    where MpID = #{mpid,jdbcType=VARCHAR}
+      and UserID = #{userid,jdbcType=VARCHAR}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="com.ylt.main.pojo.WxUserlistKey" >
+    delete from wx_userlist
+    where MpID = #{mpid,jdbcType=VARCHAR}
+      and UserID = #{userid,jdbcType=VARCHAR}
+  </delete>
+  <insert id="insert" parameterType="com.ylt.main.pojo.WxUserlist" >
+    insert into wx_userlist (MpID, UserID, UserName, 
+      NickName, RemarkName, City, 
+      Province, Country, Gender, 
+      GroupId, UserState)
+    values (#{mpid,jdbcType=VARCHAR}, #{userid,jdbcType=VARCHAR}, #{username,jdbcType=VARCHAR}, 
+      #{nickname,jdbcType=VARCHAR}, #{remarkname,jdbcType=VARCHAR}, #{city,jdbcType=VARCHAR}, 
+      #{province,jdbcType=VARCHAR}, #{country,jdbcType=VARCHAR}, #{gender,jdbcType=BIT}, 
+      #{groupid,jdbcType=INTEGER}, #{userstate,jdbcType=BIT})
+  </insert>
+  <insert id="insertSelective" parameterType="com.ylt.main.pojo.WxUserlist" >
+    insert into wx_userlist
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="mpid != null" >
+        MpID,
+      </if>
+      <if test="userid != null" >
+        UserID,
+      </if>
+      <if test="username != null" >
+        UserName,
+      </if>
+      <if test="nickname != null" >
+        NickName,
+      </if>
+      <if test="remarkname != null" >
+        RemarkName,
+      </if>
+      <if test="city != null" >
+        City,
+      </if>
+      <if test="province != null" >
+        Province,
+      </if>
+      <if test="country != null" >
+        Country,
+      </if>
+      <if test="gender != null" >
+        Gender,
+      </if>
+      <if test="groupid != null" >
+        GroupId,
+      </if>
+      <if test="userstate != null" >
+        UserState,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="mpid != null" >
+        #{mpid,jdbcType=VARCHAR},
+      </if>
+      <if test="userid != null" >
+        #{userid,jdbcType=VARCHAR},
+      </if>
+      <if test="username != null" >
+        #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="remarkname != null" >
+        #{remarkname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        #{gender,jdbcType=BIT},
+      </if>
+      <if test="groupid != null" >
+        #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="userstate != null" >
+        #{userstate,jdbcType=BIT},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ylt.main.pojo.WxUserlist" >
+    update wx_userlist
+    <set >
+      <if test="username != null" >
+        UserName = #{username,jdbcType=VARCHAR},
+      </if>
+      <if test="nickname != null" >
+        NickName = #{nickname,jdbcType=VARCHAR},
+      </if>
+      <if test="remarkname != null" >
+        RemarkName = #{remarkname,jdbcType=VARCHAR},
+      </if>
+      <if test="city != null" >
+        City = #{city,jdbcType=VARCHAR},
+      </if>
+      <if test="province != null" >
+        Province = #{province,jdbcType=VARCHAR},
+      </if>
+      <if test="country != null" >
+        Country = #{country,jdbcType=VARCHAR},
+      </if>
+      <if test="gender != null" >
+        Gender = #{gender,jdbcType=BIT},
+      </if>
+      <if test="groupid != null" >
+        GroupId = #{groupid,jdbcType=INTEGER},
+      </if>
+      <if test="userstate != null" >
+        UserState = #{userstate,jdbcType=BIT},
+      </if>
+    </set>
+    where MpID = #{mpid,jdbcType=VARCHAR}
+      and UserID = #{userid,jdbcType=VARCHAR}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ylt.main.pojo.WxUserlist" >
+    update wx_userlist
+    set UserName = #{username,jdbcType=VARCHAR},
+      NickName = #{nickname,jdbcType=VARCHAR},
+      RemarkName = #{remarkname,jdbcType=VARCHAR},
+      City = #{city,jdbcType=VARCHAR},
+      Province = #{province,jdbcType=VARCHAR},
+      Country = #{country,jdbcType=VARCHAR},
+      Gender = #{gender,jdbcType=BIT},
+      GroupId = #{groupid,jdbcType=INTEGER},
+      UserState = #{userstate,jdbcType=BIT}
+    where MpID = #{mpid,jdbcType=VARCHAR}
+      and UserID = #{userid,jdbcType=VARCHAR}
+  </update>
+</mapper>
